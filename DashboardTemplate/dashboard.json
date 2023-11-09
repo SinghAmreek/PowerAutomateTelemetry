@@ -1,0 +1,1345 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "appInsights-name": {
+            "type": "string"
+        },
+        "resourceGroup-name": {
+            "type": "string"
+        }
+     },
+    "variables": {},
+    "resources": [
+      {
+        "properties": {
+          "lenses": {
+            "0": {
+              "order": 0,
+              "parts": {
+                "0": {
+                  "position": {
+                    "x": 0,
+                    "y": 0,
+                    "rowSpan": 1,
+                    "colSpan": 11
+                  },
+                  "metadata": {
+                    "inputs": [],
+                    "type": "Extension/HubsExtension/PartType/MarkdownPart",
+                    "settings": {
+                      "content": {
+                        "content": "\n# General Health and Flow Names\n\n\n",
+                        "title": "",
+                        "subtitle": "",
+                        "markdownSource": 1,
+                        "markdownUri": ""
+                      }
+                    }
+                  }
+                },
+                "1": {
+                  "position": {
+                    "x": 11,
+                    "y": 0,
+                    "rowSpan": 1,
+                    "colSpan": 5
+                  },
+                  "metadata": {
+                    "inputs": [],
+                    "type": "Extension/HubsExtension/PartType/MarkdownPart",
+                    "settings": {
+                      "content": {
+                        "content": "# Flow Runs and Billable Actions\n",
+                        "title": "",
+                        "subtitle": "",
+                        "markdownSource": 1,
+                        "markdownUri": ""
+                      }
+                    }
+                  }
+                },
+                "2": {
+                  "position": {
+                    "x": 0,
+                    "y": 1,
+                    "rowSpan": 4,
+                    "colSpan": 6
+                  },
+                  "metadata": {
+                    "inputs": [
+                      {
+                        "name": "sharedTimeRange",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "options",
+                        "value": {
+                          "chart": {
+                            "metrics": [
+                              {
+                                "resourceMetadata": {
+                                  "id": "[resourceId(parameters('resourceGroup-name'), 'microsoft.insights/components', parameters('appInsights-name'))]"
+                                },
+                                "name": "requests/count",
+                                "aggregationType": 1,
+                                "namespace": "microsoft.insights/components/kusto",
+                                "metricVisualization": {
+                                  "displayName": "Server requests"
+                                }
+                              },
+                              {
+                                "resourceMetadata": {
+                                  "id": "[resourceId(parameters('resourceGroup-name'), 'microsoft.insights/components', parameters('appInsights-name'))]"
+                                },
+                                "name": "requests/failed",
+                                "aggregationType": 1,
+                                "namespace": "microsoft.insights/components/kusto",
+                                "metricVisualization": {
+                                  "displayName": "Failed requests"
+                                }
+                              }
+                            ],
+                            "title": "Total Flow Runs VS failed flow runs",
+                            "titleKind": 2,
+                            "visualization": {
+                              "chartType": 2,
+                              "legendVisualization": {
+                                "isVisible": true,
+                                "position": 2,
+                                "hideSubtitle": false
+                              },
+                              "axisVisualization": {
+                                "x": {
+                                  "isVisible": true,
+                                  "axisType": 2
+                                },
+                                "y": {
+                                  "isVisible": true,
+                                  "axisType": 1
+                                }
+                              }
+                            },
+                            "filterCollection": {
+                              "filters": [
+                                {
+                                  "key": "customDimensions/resourceProvider",
+                                  "operator": 0,
+                                  "values": [
+                                    "Cloud Flow"
+                                  ]
+                                }
+                              ]
+                            },
+                            "timespan": {
+                              "relative": {
+                                "duration": 86400000
+                              },
+                              "showUTCTime": false,
+                              "grain": 1
+                            }
+                          }
+                        },
+                        "isOptional": true
+                      }
+                    ],
+                    "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+                    "settings": {
+                      "content": {
+                        "options": {
+                          "chart": {
+                            "metrics": [
+                              {
+                                "resourceMetadata": {
+                                  "id": "[resourceId(parameters('resourceGroup-name'), 'microsoft.insights/components', parameters('appInsights-name'))]"
+                                },
+                                "name": "requests/count",
+                                "aggregationType": 1,
+                                "namespace": "microsoft.insights/components/kusto",
+                                "metricVisualization": {
+                                  "displayName": "Server requests"
+                                }
+                              },
+                              {
+                                "resourceMetadata": {
+                                  "id": "[resourceId(parameters('resourceGroup-name'), 'microsoft.insights/components', parameters('appInsights-name'))]"
+                                },
+                                "name": "requests/failed",
+                                "aggregationType": 1,
+                                "namespace": "microsoft.insights/components/kusto",
+                                "metricVisualization": {
+                                  "displayName": "Failed requests"
+                                }
+                              }
+                            ],
+                            "title": "Total Flow Runs VS failed flow runs",
+                            "titleKind": 2,
+                            "visualization": {
+                              "chartType": 2,
+                              "legendVisualization": {
+                                "isVisible": true,
+                                "position": 2,
+                                "hideSubtitle": false
+                              },
+                              "axisVisualization": {
+                                "x": {
+                                  "isVisible": true,
+                                  "axisType": 2
+                                },
+                                "y": {
+                                  "isVisible": true,
+                                  "axisType": 1
+                                }
+                              },
+                              "disablePinning": true
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "filters": {
+                      "customDimensions/resourceProvider": {
+                        "model": {
+                          "operator": "equals",
+                          "values": [
+                            "Cloud Flow"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "3": {
+                  "position": {
+                    "x": 6,
+                    "y": 1,
+                    "rowSpan": 4,
+                    "colSpan": 5
+                  },
+                  "metadata": {
+                    "inputs": [
+                      {
+                        "name": "resourceTypeMode",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ComponentId",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Scope",
+                        "value": {
+                          "resourceIds": [
+                            "[resourceId(parameters('resourceGroup-name'), 'microsoft.insights/components', parameters('appInsights-name'))]"
+                          ]
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartId",
+                        "value": "1339eb58-7e62-4261-b856-850bb904624c",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Version",
+                        "value": "2.0",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "TimeRange",
+                        "value": "P1D",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "DraftRequestParameters",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Query",
+                        "value": "requests\r\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\r\n//| where customDimensions['signalCategory'] == 'Cloud flow actions'\r\n|extend cd= parse_json(tostring(customDimensions [\"Data\"]))\r\n|distinct  FlowDisplayName =tostring(cd.FlowDisplayName), FlowId=tostring(customDimensions['resourceId'])\r\n",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ControlType",
+                        "value": "AnalyticsGrid",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "SpecificChart",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartTitle",
+                        "value": "Analytics",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartSubTitle",
+                        "value": "[parameters('appInsights-name')]",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Dimensions",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "LegendOptions",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "IsQueryContainTimeRange",
+                        "value": false,
+                        "isOptional": true
+                      }
+                    ],
+                    "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+                    "settings": {
+                      "content": {
+                        "GridColumnsWidth": {
+                          "FlowDisplayName": "196px",
+                          "FlowId": "192px"
+                        },
+                        "PartTitle": "Analytics",
+                        "PartSubTitle": "Dynamics365AppInsights"
+                      }
+                    },
+                    "partHeader": {
+                      "title": "Flow Display Names",
+                      "subtitle": ""
+                    }
+                  }
+                },
+                "4": {
+                  "position": {
+                    "x": 11,
+                    "y": 1,
+                    "rowSpan": 4,
+                    "colSpan": 5
+                  },
+                  "metadata": {
+                    "inputs": [
+                      {
+                        "name": "resourceTypeMode",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ComponentId",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Scope",
+                        "value": {
+                          "resourceIds": [
+                            "[resourceId(parameters('resourceGroup-name'), 'microsoft.insights/components', parameters('appInsights-name'))]"
+                          ]
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartId",
+                        "value": "185b2038-116f-4bb1-ba11-bff23ff12f7a",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Version",
+                        "value": "2.0",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "TimeRange",
+                        "value": "P1D",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "DraftRequestParameters",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Query",
+                        "value": "//Top 10 flows by runs\nrequests\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n//| where customDimensions['resourceId'] == myflowid\n|extend cd= parse_json(tostring(customDimensions [\"Data\"]))\n| extend flowname=tostring(cd.FlowDisplayName)\n|summarize FlowRuns=count() by flowname\n|top 10 by FlowRuns desc\n|render barchart ",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ControlType",
+                        "value": "FrameControlChart",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "SpecificChart",
+                        "value": "StackedBar",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartTitle",
+                        "value": "Analytics",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartSubTitle",
+                        "value": "[parameters('appInsights-name')]",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Dimensions",
+                        "value": {
+                          "xAxis": {
+                            "name": "flowname",
+                            "type": "string"
+                          },
+                          "yAxis": [
+                            {
+                              "name": "FlowRuns",
+                              "type": "long"
+                            }
+                          ],
+                          "splitBy": [],
+                          "aggregation": "Sum"
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "LegendOptions",
+                        "value": {
+                          "isEnabled": true,
+                          "position": "Bottom"
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "IsQueryContainTimeRange",
+                        "value": false,
+                        "isOptional": true
+                      }
+                    ],
+                    "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+                    "settings": {
+                      "content": {
+                        "Query": "//Top 10 flows by runs\nrequests\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n//| where customDimensions['resourceId'] == myflowid\n|extend cd= parse_json(tostring(customDimensions [\"Data\"]))\n| extend flowname=tostring(cd.FlowDisplayName)\n|summarize FlowRuns=count() by flowname\n|top 10 by FlowRuns desc\n|render barchart \n"
+                      }
+                    },
+                    "partHeader": {
+                      "title": "Flow Runs by flows",
+                      "subtitle": ""
+                    }
+                  }
+                },
+                "5": {
+                  "position": {
+                    "x": 0,
+                    "y": 5,
+                    "rowSpan": 1,
+                    "colSpan": 11
+                  },
+                  "metadata": {
+                    "inputs": [],
+                    "type": "Extension/HubsExtension/PartType/MarkdownPart",
+                    "settings": {
+                      "content": {
+                        "content": "\n# Exceptions\n\n\n",
+                        "title": "",
+                        "subtitle": "",
+                        "markdownSource": 1,
+                        "markdownUri": ""
+                      }
+                    }
+                  }
+                },
+                "6": {
+                  "position": {
+                    "x": 11,
+                    "y": 5,
+                    "rowSpan": 5,
+                    "colSpan": 5
+                  },
+                  "metadata": {
+                    "inputs": [
+                      {
+                        "name": "resourceTypeMode",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ComponentId",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Scope",
+                        "value": {
+                          "resourceIds": [
+                            "[resourceId(parameters('resourceGroup-name'), 'microsoft.insights/components', parameters('appInsights-name'))]"
+                          ]
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartId",
+                        "value": "107293f3-56b2-4f17-9143-0bb62313910f",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Version",
+                        "value": "2.0",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "TimeRange",
+                        "value": "P1D",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "DraftRequestParameters",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Query",
+                        "value": "//Top 10 flows by Billable actions\ndependencies\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n| where customDimensions['error'] !contains \"skipped\"\n//| where customDimensions['signalCategory'] == 'Cloud flow actions'\n//| where customDimensions['resourceId'] == myflowid\n|extend cd= parse_json(tostring(customDimensions [\"Data\"]))\n|extend flowname=tostring(cd.FlowDisplayName)\n|summarize BillableActions=count() by flowname\n|top 10 by BillableActions desc\n|render barchart \n",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ControlType",
+                        "value": "FrameControlChart",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "SpecificChart",
+                        "value": "StackedBar",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartTitle",
+                        "value": "Analytics",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartSubTitle",
+                        "value": "[parameters('appInsights-name')]",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Dimensions",
+                        "value": {
+                          "xAxis": {
+                            "name": "flowname",
+                            "type": "string"
+                          },
+                          "yAxis": [
+                            {
+                              "name": "BillableActions",
+                              "type": "long"
+                            }
+                          ],
+                          "splitBy": [],
+                          "aggregation": "Sum"
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "LegendOptions",
+                        "value": {
+                          "isEnabled": true,
+                          "position": "Bottom"
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "IsQueryContainTimeRange",
+                        "value": false,
+                        "isOptional": true
+                      }
+                    ],
+                    "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+                    "settings": {},
+                    "partHeader": {
+                      "title": "Billable Actions by flows",
+                      "subtitle": ""
+                    }
+                  }
+                },
+                "7": {
+                  "position": {
+                    "x": 0,
+                    "y": 6,
+                    "rowSpan": 4,
+                    "colSpan": 5
+                  },
+                  "metadata": {
+                    "inputs": [
+                      {
+                        "name": "resourceTypeMode",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ComponentId",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Scope",
+                        "value": {
+                          "resourceIds": [
+                            "[resourceId(parameters('resourceGroup-name'), 'microsoft.insights/components', parameters('appInsights-name'))]"
+                          ]
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartId",
+                        "value": "62dcad0b-582b-4402-9278-de89a145c8ca",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Version",
+                        "value": "2.0",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "TimeRange",
+                        "value": "P7D",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "DraftRequestParameters",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Query",
+                        "value": "// Trigger Failures by FlowName\ndependencies\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n| where customDimensions['signalCategory'] == 'Cloud flow triggers'\n| where success == false\n| extend cd= parse_json(tostring(customDimensions [\"tags\"]))\n| extend flowname=tostring(cd.FlowDisplayName)\n| summarize TriggerFailures=count() by flowname\n| render barchart\n\n",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ControlType",
+                        "value": "FrameControlChart",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "SpecificChart",
+                        "value": "StackedBar",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartTitle",
+                        "value": "Analytics",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartSubTitle",
+                        "value": "[parameters('appInsights-name')]",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Dimensions",
+                        "value": {
+                          "xAxis": {
+                            "name": "flowname",
+                            "type": "string"
+                          },
+                          "yAxis": [
+                            {
+                              "name": "TriggerFailures",
+                              "type": "long"
+                            }
+                          ],
+                          "splitBy": [],
+                          "aggregation": "Sum"
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "LegendOptions",
+                        "value": {
+                          "isEnabled": true,
+                          "position": "Bottom"
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "IsQueryContainTimeRange",
+                        "value": false,
+                        "isOptional": true
+                      }
+                    ],
+                    "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+                    "settings": {},
+                    "partHeader": {
+                      "title": "Trigger Failures by Flows",
+                      "subtitle": ""
+                    }
+                  }
+                },
+                "8": {
+                  "position": {
+                    "x": 5,
+                    "y": 6,
+                    "rowSpan": 4,
+                    "colSpan": 6
+                  },
+                  "metadata": {
+                    "inputs": [
+                      {
+                        "name": "resourceTypeMode",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ComponentId",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Scope",
+                        "value": {
+                          "resourceIds": [
+                            "[resourceId(parameters('resourceGroup-name'), 'microsoft.insights/components', parameters('appInsights-name'))]"
+                          ]
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartId",
+                        "value": "5ca2766e-82e0-4f73-9118-5b724111c4d8",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Version",
+                        "value": "2.0",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "TimeRange",
+                        "value": "P7D",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "DraftRequestParameters",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Query",
+                        "value": "// Top failed actions by flows\ndependencies\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n| where customDimensions['signalCategory'] == 'Cloud flow actions'\n//| where customDimensions['resourceId'] == myflowid\n| where success == false\n|extend cd= parse_json(tostring(customDimensions [\"Data\"]))\n| extend flowname=tostring(cd.FlowDisplayName)\n| extend actionname=tostring(cd.actionName)\n|summarize BillableActions=count() by actionname,flowname\n|top 10 by BillableActions desc\n|render barchart\n",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ControlType",
+                        "value": "FrameControlChart",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "SpecificChart",
+                        "value": "StackedBar",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartTitle",
+                        "value": "Analytics",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartSubTitle",
+                        "value": "[parameters('appInsights-name')]",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Dimensions",
+                        "value": {
+                          "xAxis": {
+                            "name": "actionname",
+                            "type": "string"
+                          },
+                          "yAxis": [
+                            {
+                              "name": "BillableActions",
+                              "type": "long"
+                            }
+                          ],
+                          "splitBy": [
+                            {
+                              "name": "flowname",
+                              "type": "string"
+                            }
+                          ],
+                          "aggregation": "Sum"
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "LegendOptions",
+                        "value": {
+                          "isEnabled": true,
+                          "position": "Bottom"
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "IsQueryContainTimeRange",
+                        "value": false,
+                        "isOptional": true
+                      }
+                    ],
+                    "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+                    "settings": {},
+                    "partHeader": {
+                      "title": "Top Action Failures by Flows",
+                      "subtitle": ""
+                    }
+                  }
+                },
+                "9": {
+                  "position": {
+                    "x": 0,
+                    "y": 10,
+                    "rowSpan": 1,
+                    "colSpan": 16
+                  },
+                  "metadata": {
+                    "inputs": [],
+                    "type": "Extension/HubsExtension/PartType/MarkdownPart",
+                    "settings": {
+                      "content": {
+                        "content": "# Performance\n",
+                        "title": "",
+                        "subtitle": "",
+                        "markdownSource": 1,
+                        "markdownUri": ""
+                      }
+                    }
+                  }
+                },
+                "10": {
+                  "position": {
+                    "x": 0,
+                    "y": 11,
+                    "rowSpan": 4,
+                    "colSpan": 11
+                  },
+                  "metadata": {
+                    "inputs": [
+                      {
+                        "name": "resourceTypeMode",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ComponentId",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Scope",
+                        "value": {
+                          "resourceIds": [
+                            "[resourceId(parameters('resourceGroup-name'), 'microsoft.insights/components', parameters('appInsights-name'))]"
+                          ]
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartId",
+                        "value": "5ec1aebf-1956-4b38-bd08-24cb363c6a36",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Version",
+                        "value": "2.0",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "TimeRange",
+                        "value": "P1D",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "DraftRequestParameters",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Query",
+                        "value": "// Response time trend 95th perecentile\n// Chart request duration over time. \n// To create an alert for this query, click '+ New alert rule'\nrequests\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n//| where customDimensions['resourceId'] == \"d72a653f-4ff9-7e78-1f28-a63fd3d16286\"\n| extend cd= parse_json(tostring(customDimensions[\"Data\"]))\n| extend FlowName=tostring(cd.FlowDisplayName)\n| summarize FlowExecution_95=percentile(duration,95) by bin(timestamp, 10m), FlowName \n| render timechart\n\n",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ControlType",
+                        "value": "FrameControlChart",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "SpecificChart",
+                        "value": "Line",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartTitle",
+                        "value": "Analytics",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartSubTitle",
+                        "value": "[parameters('appInsights-name')]",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Dimensions",
+                        "value": {
+                          "xAxis": {
+                            "name": "timestamp",
+                            "type": "datetime"
+                          },
+                          "yAxis": [
+                            {
+                              "name": "FlowExecution_95",
+                              "type": "real"
+                            }
+                          ],
+                          "splitBy": [
+                            {
+                              "name": "FlowName",
+                              "type": "string"
+                            }
+                          ],
+                          "aggregation": "Sum"
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "LegendOptions",
+                        "value": {
+                          "isEnabled": true,
+                          "position": "Bottom"
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "IsQueryContainTimeRange",
+                        "value": false,
+                        "isOptional": true
+                      }
+                    ],
+                    "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+                    "settings": {
+                      "content": {
+                        "LegendOptions": {
+                          "isEnabled": true,
+                          "position": "Right"
+                        }
+                      }
+                    },
+                    "partHeader": {
+                      "title": "Performance by Flow Names",
+                      "subtitle": ""
+                    }
+                  }
+                },
+                "11": {
+                  "position": {
+                    "x": 11,
+                    "y": 11,
+                    "rowSpan": 4,
+                    "colSpan": 5
+                  },
+                  "metadata": {
+                    "inputs": [
+                      {
+                        "name": "resourceTypeMode",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ComponentId",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Scope",
+                        "value": {
+                          "resourceIds": [
+                            "[resourceId(parameters('resourceGroup-name'), 'microsoft.insights/components', parameters('appInsights-name'))]"
+                          ]
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartId",
+                        "value": "0f4ebd6f-eafe-4d92-9131-4eea1d139e5f",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Version",
+                        "value": "2.0",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "TimeRange",
+                        "value": "P7D",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "DraftRequestParameters",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Query",
+                        "value": "requests\r\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\r\n//| where customDimensions['resourceId'] == \"d72a653f-4ff9-7e78-1f28-a63fd3d16286\"\r\n| extend cd= parse_json(tostring(customDimensions[\"Data\"]))\r\n| extend FlowName=tostring(cd.FlowDisplayName)\r\n//| extend RunId=tostring(cd.RunId)\r\n| where duration >10000\r\n| project timestamp,FlowName,name, duration,performanceBucket, success, operation_Id, customDimensions",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ControlType",
+                        "value": "AnalyticsGrid",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "SpecificChart",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartTitle",
+                        "value": "Analytics",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartSubTitle",
+                        "value": "[parameters('appInsights-name')]",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Dimensions",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "LegendOptions",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "IsQueryContainTimeRange",
+                        "value": false,
+                        "isOptional": true
+                      }
+                    ],
+                    "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+                    "settings": {
+                      "content": {
+                        "GridColumnsWidth": {
+                          "FlowName": "188px",
+                          "duration": "90px"
+                        },
+                        "Query": "requests\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n//| where customDimensions['resourceId'] == \"d72a653f-4ff9-7e78-1f28-a63fd3d16286\"\n| extend cd= parse_json(tostring(customDimensions[\"Data\"]))\n| extend FlowName=tostring(cd.FlowDisplayName)\n//| extend RunId=tostring(cd.RunId)\n| where duration >10000\n| project FlowName,duration,operation_Id,success,name,timestamp\n\n",
+                        "PartTitle": "Flow Runs taking > 10 seconds"
+                      }
+                    }
+                  }
+                },
+                "12": {
+                  "position": {
+                    "x": 0,
+                    "y": 15,
+                    "rowSpan": 1,
+                    "colSpan": 16
+                  },
+                  "metadata": {
+                    "inputs": [],
+                    "type": "Extension/HubsExtension/PartType/MarkdownPart",
+                    "settings": {
+                      "content": {
+                        "content": "# Billabale Actions for a specific Flow / Process\n",
+                        "title": "",
+                        "subtitle": "",
+                        "markdownSource": 1,
+                        "markdownUri": ""
+                      }
+                    }
+                  }
+                },
+                "13": {
+                  "position": {
+                    "x": 0,
+                    "y": 16,
+                    "rowSpan": 4,
+                    "colSpan": 8
+                  },
+                  "metadata": {
+                    "inputs": [
+                      {
+                        "name": "resourceTypeMode",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ComponentId",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Scope",
+                        "value": {
+                          "resourceIds": [
+                            "[resourceId(parameters('resourceGroup-name'), 'microsoft.insights/components', parameters('appInsights-name'))]"
+                          ]
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartId",
+                        "value": "14a896a8-843b-441d-be50-9705770d4676",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Version",
+                        "value": "2.0",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "TimeRange",
+                        "value": "P1D",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "DraftRequestParameters",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Query",
+                        "value": "// Flow actions by day for a specific flow\r\n// replace the flowid to run this query\r\nlet myflowid = '51f7bacf-3220-c315-5c7f-fe9fd06078ee';\r\ndependencies\r\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\r\n//| where customDimensions['signalCategory'] == 'Cloud flow actions'\r\n| where customDimensions['resourceId'] == myflowid\r\n|summarize count() by bin(timestamp,1d)\r\n\r\n",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ControlType",
+                        "value": "AnalyticsGrid",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "SpecificChart",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartTitle",
+                        "value": "Analytics",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartSubTitle",
+                        "value": "[parameters('appInsights-name')]",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Dimensions",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "LegendOptions",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "IsQueryContainTimeRange",
+                        "value": false,
+                        "isOptional": true
+                      }
+                    ],
+                    "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+                    "settings": {
+                      "content": {
+                        "Query": "// Flow actions by day for a specific flow\n// replace the flowid to run this query\nlet myflowid = '51f7bacf-3220-c315-5c7f-fe9fd06078ee';\ndependencies\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n//| where customDimensions['signalCategory'] == 'Cloud flow actions'\n| where customDimensions['resourceId'] == myflowid\n|summarize count() by bin(timestamp,1d)\n| render columnchart \n\n",
+                        "ControlType": "FrameControlChart",
+                        "SpecificChart": "StackedColumn",
+                        "Dimensions": {
+                          "xAxis": {
+                            "name": "timestamp",
+                            "type": "datetime"
+                          },
+                          "yAxis": [
+                            {
+                              "name": "count_",
+                              "type": "long"
+                            }
+                          ],
+                          "splitBy": [],
+                          "aggregation": "Sum"
+                        },
+                        "LegendOptions": {
+                          "isEnabled": true,
+                          "position": "Bottom"
+                        }
+                      }
+                    },
+                    "filters": {
+                      "MsPortalFx_TimeRange": {
+                        "model": {
+                          "format": "utc",
+                          "granularity": "auto",
+                          "relative": "7d"
+                        }
+                      }
+                    },
+                    "partHeader": {
+                      "title": "Billable actions for a specific flow over 7 days",
+                      "subtitle": ""
+                    }
+                  }
+                },
+                "14": {
+                  "position": {
+                    "x": 8,
+                    "y": 16,
+                    "rowSpan": 4,
+                    "colSpan": 8
+                  },
+                  "metadata": {
+                    "inputs": [
+                      {
+                        "name": "resourceTypeMode",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ComponentId",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Scope",
+                        "value": {
+                          "resourceIds": [
+                            "[resourceId(parameters('resourceGroup-name'), 'microsoft.insights/components', parameters('appInsights-name'))]"
+                          ]
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartId",
+                        "value": "8fa78605-57e5-4ce3-b513-b8475d51578d",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Version",
+                        "value": "2.0",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "TimeRange",
+                        "value": "P7D",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "DraftRequestParameters",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Query",
+                        "value": "// Process actions by day for flows in a process\n// replace and add the flowids to array based on your process\nlet processFlows = dynamic(['51f7bacf-3220-c315-5c7f-fe9fd06078ee','c799065a-917f-6324-c3a7-e5d3db415801'\n,'7ff5b11c-5e84-ead3-cbe8-3a0ba1f0e774']);\ndependencies\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n//| where customDimensions['signalCategory'] == 'Cloud flow actions'\n| where customDimensions['resourceId'] in (processFlows)\n|summarize count() by bin(timestamp,1d)\n",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "ControlType",
+                        "value": "FrameControlChart",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "SpecificChart",
+                        "value": "StackedColumn",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartTitle",
+                        "value": "Analytics",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "PartSubTitle",
+                        "value": "[parameters('appInsights-name')]",
+                        "isOptional": true
+                      },
+                      {
+                        "name": "Dimensions",
+                        "value": {
+                          "xAxis": {
+                            "name": "timestamp",
+                            "type": "datetime"
+                          },
+                          "yAxis": [
+                            {
+                              "name": "count_",
+                              "type": "long"
+                            }
+                          ],
+                          "splitBy": [],
+                          "aggregation": "Sum"
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "LegendOptions",
+                        "value": {
+                          "isEnabled": true,
+                          "position": "Bottom"
+                        },
+                        "isOptional": true
+                      },
+                      {
+                        "name": "IsQueryContainTimeRange",
+                        "value": false,
+                        "isOptional": true
+                      }
+                    ],
+                    "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+                    "settings": {
+                      "content": {
+                        "Query": "// Process actions by day for flows in a process\n// replace and add the flowids to array based on your process\nlet processFlows = dynamic(['51f7bacf-3220-c315-5c7f-fe9fd06078ee','c799065a-917f-6324-c3a7-e5d3db415801'\n,'7ff5b11c-5e84-ead3-cbe8-3a0ba1f0e774']);\ndependencies\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n//| where customDimensions['signalCategory'] == 'Cloud flow actions'\n| where customDimensions['resourceId'] in (processFlows)\n|summarize count() by bin(timestamp,1d)\n\n"
+                      }
+                    },
+                    "filters": {
+                      "MsPortalFx_TimeRange": {
+                        "model": {
+                          "format": "utc",
+                          "granularity": "auto",
+                          "relative": "7d"
+                        }
+                      }
+                    },
+                    "partHeader": {
+                      "title": "Billable actions for process (flows in a process) over 7 days",
+                      "subtitle": ""
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "metadata": {
+            "model": {
+              "timeRange": {
+                "value": {
+                  "relative": {
+                    "duration": 24,
+                    "timeUnit": 1
+                  }
+                },
+                "type": "MsPortalFx.Composition.Configuration.ValueTypes.TimeRange"
+              },
+              "filterLocale": {
+                "value": "en-us"
+              },
+              "filters": {
+                "value": {
+                  "MsPortalFx_TimeRange": {
+                    "model": {
+                      "format": "utc",
+                      "granularity": "auto",
+                      "relative": "24h"
+                    },
+                    "displayCache": {
+                      "name": "UTC Time",
+                      "value": "Past 24 hours"
+                    },
+                    "filteredPartIds": [
+                      "StartboardPart-LogsDashboardPart-864e8216-be64-436a-b259-6581e33610cc",
+                      "StartboardPart-LogsDashboardPart-864e8216-be64-436a-b259-6581e33610d2",
+                      "StartboardPart-LogsDashboardPart-864e8216-be64-436a-b259-6581e33610d4",
+                      "StartboardPart-LogsDashboardPart-864e8216-be64-436a-b259-6581e33610d6",
+                      "StartboardPart-MonitorChartPart-864e8216-be64-436a-b259-6581e33610ca",
+                      "StartboardPart-LogsDashboardPart-864e8216-be64-436a-b259-6581e33610ce",
+                      "StartboardPart-LogsDashboardPart-864e8216-be64-436a-b259-6581e33610da",
+                      "StartboardPart-LogsDashboardPart-864e8216-be64-436a-b259-6581e33610dc",
+                      "StartboardPart-LogsDashboardPart-864e8216-be64-436a-b259-6581e33610e0",
+                      "StartboardPart-LogsDashboardPart-864e8216-be64-436a-b259-6581e33610e2"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "location": "westus2",
+        "tags": {
+          "hidden-title": "Power Automate Dashboard"
+        },
+        "name": "PowerAutomateDashboard",
+        "type": "Microsoft.Portal/dashboards",
+        "apiVersion": "2015-08-01-preview"
+      }
+    ]
+}

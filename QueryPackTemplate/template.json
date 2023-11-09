@@ -1,0 +1,250 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "querypacks_PowerAutomate_name": {
+            "defaultValue": "PowerAutomate",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.OperationalInsights/querypacks",
+            "apiVersion": "2019-09-01",
+            "name": "[parameters('querypacks_PowerAutomate_name')]",
+            "location": "westus",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.OperationalInsights/querypacks/queries",
+            "apiVersion": "2019-09-01",
+            "name": "[concat(parameters('querypacks_PowerAutomate_name'), '/019770fb-a774-4ad0-8d52-353f79cd262a')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.OperationalInsights/querypacks', parameters('querypacks_PowerAutomate_name'))]"
+            ],
+            "properties": {
+                "displayName": "FlowRuns with response time gt10sec",
+                "description": "returns requests where response time is over 10s ecs",
+                "body": "requests\r\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\r\n//| where customDimensions['resourceId'] == \"d72a653f-4ff9-7e78-1f28-a63fd3d16286\"\r\n| extend cd= parse_json(tostring(customDimensions[\"Data\"]))\r\n| extend FlowName=tostring(cd.FlowDisplayName)\r\n//| extend RunId=tostring(cd.RunId)\r\n| where duration > 10000\r\n| project\r\n    timestamp,\r\n    FlowName,\r\n    name,\r\n    duration,\r\n    performanceBucket,\r\n    success,\r\n    operation_Id\r\n",
+                "related": {
+                    "categories": [
+                        "applications"
+                    ],
+                    "resourceTypes": [
+                        "microsoft.insights/components"
+                    ]
+                },
+                "tags": {
+                    "labels": [
+                        "PA Label"
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.OperationalInsights/querypacks/queries",
+            "apiVersion": "2019-09-01",
+            "name": "[concat(parameters('querypacks_PowerAutomate_name'), '/2becdb9b-5fb6-4f26-b581-bf7062da04fb')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.OperationalInsights/querypacks', parameters('querypacks_PowerAutomate_name'))]"
+            ],
+            "properties": {
+                "displayName": "Process actions by day for flows in a process",
+                "description": "This is a process licence. you may have 10 different flows in a process. Add those flowids to the query and you can get billable actions for a process",
+                "body": "// Process actions by day for flows in a process\r\n// replace and add the flowids to array based on your process\r\nlet processFlows = dynamic(['51f7bacf-3220-c315-5c7f-fe9fd06078ee', 'c799065a-917f-6324-c3a7-e5d3db415801'\r\n    , '7ff5b11c-5e84-ead3-cbe8-3a0ba1f0e774']);\r\ndependencies\r\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\r\n//| where customDimensions['signalCategory'] == 'Cloud flow actions'\r\n| where customDimensions['resourceId'] in (processFlows)\r\n| summarize count() by bin(timestamp, 1d)",
+                "related": {
+                    "categories": [
+                        "applications"
+                    ],
+                    "resourceTypes": [
+                        "microsoft.insights/components"
+                    ]
+                },
+                "tags": {
+                    "labels": [
+                        "PA Label"
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.OperationalInsights/querypacks/queries",
+            "apiVersion": "2019-09-01",
+            "name": "[concat(parameters('querypacks_PowerAutomate_name'), '/31063778-61e1-49b1-a67b-cdf0db837c02')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.OperationalInsights/querypacks', parameters('querypacks_PowerAutomate_name'))]"
+            ],
+            "properties": {
+                "displayName": "Top failed actions by FlowName",
+                "body": "// Top failed actions by flows\ndependencies\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n| where customDimensions['signalCategory'] == 'Cloud flow actions'\n//| where customDimensions['resourceId'] == myflowid\n| where success == false\n| extend cd= parse_json(tostring(customDimensions[\"Data\"]))\n| extend flowname=tostring(cd.FlowDisplayName)\n| extend actionname=tostring(cd.actionName)\n| summarize BillableActions=count() by actionname, flowname\n| top 10 by BillableActions desc\n| render barchart\n\n// Trigger Failures by FlowName\ndependencies\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n| where customDimensions['signalCategory'] == 'Cloud flow triggers'\n| where success == false\n| extend cd= parse_json(tostring(customDimensions [\"tags\"]))\n| extend flowname=tostring(cd.FlowDisplayName)\n| summarize TriggerFailures=count() by flowname\n| render barchart\n\n\nrequests\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n//| where customDimensions['resourceId'] == \"d72a653f-4ff9-7e78-1f28-a63fd3d16286\"\n| extend cd= parse_json(tostring(customDimensions[\"Data\"]))\n| extend FlowName=tostring(cd.FlowDisplayName)\n//| extend RunId=tostring(cd.RunId)\n| where duration >10000\n| project timestamp,FlowName,name, duration,performanceBucket, success, operation_Id, customDimensions\n| order by duration desc",
+                "related": {
+                    "categories": [
+                        "applications"
+                    ],
+                    "resourceTypes": [
+                        "microsoft.insights/components"
+                    ]
+                },
+                "tags": {
+                    "labels": [
+                        "PA Label"
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.OperationalInsights/querypacks/queries",
+            "apiVersion": "2019-09-01",
+            "name": "[concat(parameters('querypacks_PowerAutomate_name'), '/3d95bb0a-d4ec-452d-9a9a-40bf7ece136d')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.OperationalInsights/querypacks', parameters('querypacks_PowerAutomate_name'))]"
+            ],
+            "properties": {
+                "displayName": "ListOfFlows",
+                "description": "It returns FlowDisplayNames and FlowIds",
+                "body": "// Display the flow names and flowids based on the data in the requests table\r\nrequests\r\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\r\n//| where customDimensions['signalCategory'] == 'Cloud flow actions'\r\n| extend cd= parse_json(tostring(customDimensions[\"Data\"]))\r\n| distinct\r\n    FlowDisplayName =tostring(cd.FlowDisplayName),\r\n    FlowId=tostring(customDimensions['resourceId'])\r\n",
+                "related": {
+                    "categories": [
+                        "applications"
+                    ],
+                    "resourceTypes": [
+                        "microsoft.insights/components"
+                    ]
+                },
+                "tags": {
+                    "labels": [
+                        "PA Label"
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.OperationalInsights/querypacks/queries",
+            "apiVersion": "2019-09-01",
+            "name": "[concat(parameters('querypacks_PowerAutomate_name'), '/7575670b-d762-46d6-bf8a-bc80d0746354')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.OperationalInsights/querypacks', parameters('querypacks_PowerAutomate_name'))]"
+            ],
+            "properties": {
+                "displayName": "Flow actions by day for a specific flow",
+                "description": "You run this query if you want to track the billable actions by day for a specific flow",
+                "body": "// Flow actions by day for a specific flow\r\n// replace the flowid to run this query\r\nlet myflowid = '51f7bacf-3220-c315-5c7f-fe9fd06078ee';\r\ndependencies\r\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\r\n//| where customDimensions['signalCategory'] == 'Cloud flow actions'\r\n| where customDimensions['resourceId'] == myflowid\r\n| summarize count() by bin(timestamp, 1d)\r\n\r\n",
+                "related": {
+                    "categories": [
+                        "applications"
+                    ],
+                    "resourceTypes": [
+                        "microsoft.insights/components"
+                    ]
+                },
+                "tags": {
+                    "labels": [
+                        "PA Label"
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.OperationalInsights/querypacks/queries",
+            "apiVersion": "2019-09-01",
+            "name": "[concat(parameters('querypacks_PowerAutomate_name'), '/a5a6101b-40ba-4506-a1fe-317988782c3c')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.OperationalInsights/querypacks', parameters('querypacks_PowerAutomate_name'))]"
+            ],
+            "properties": {
+                "displayName": "Top 10 flows by Billable Actions",
+                "body": "//Top 10 flows by Billable actions\ndependencies\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n| where customDimensions['error'] !contains \"skipped\"\n//| where customDimensions['signalCategory'] == 'Cloud flow actions'\n//| where customDimensions['resourceId'] == myflowid\n| extend cd= parse_json(tostring(customDimensions[\"Data\"]))\n| extend flowname=tostring(cd.FlowDisplayName)\n| summarize BillableActions=count() by flowname\n| top 10 by BillableActions desc\n| render barchart \n",
+                "related": {
+                    "categories": [
+                        "applications"
+                    ],
+                    "resourceTypes": [
+                        "microsoft.insights/components"
+                    ]
+                },
+                "tags": {
+                    "labels": [
+                        "PA Label"
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.OperationalInsights/querypacks/queries",
+            "apiVersion": "2019-09-01",
+            "name": "[concat(parameters('querypacks_PowerAutomate_name'), '/bc6de1d7-0716-4006-95e4-bf905a63cf72')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.OperationalInsights/querypacks', parameters('querypacks_PowerAutomate_name'))]"
+            ],
+            "properties": {
+                "displayName": "Top 10 Flows by Runs",
+                "body": "//Top 10 flows by runs\nrequests\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n//| where customDimensions['resourceId'] == myflowid\n| extend cd= parse_json(tostring(customDimensions[\"Data\"]))\n| extend flowname=tostring(cd.FlowDisplayName)\n| summarize FlowRuns=count() by flowname\n| top 10 by FlowRuns desc\n| render barchart ",
+                "related": {
+                    "categories": [
+                        "applications"
+                    ],
+                    "resourceTypes": [
+                        "microsoft.insights/components"
+                    ]
+                },
+                "tags": {
+                    "labels": [
+                        "PA Label"
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.OperationalInsights/querypacks/queries",
+            "apiVersion": "2019-09-01",
+            "name": "[concat(parameters('querypacks_PowerAutomate_name'), '/cf91d375-138e-4ffe-b17d-38a7e1aa9faa')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.OperationalInsights/querypacks', parameters('querypacks_PowerAutomate_name'))]"
+            ],
+            "properties": {
+                "displayName": "Flow reponse time-95percentile",
+                "description": "The query returns the 95th percentile response time by FlowName",
+                "body": "// Response time trend 95th perecentile\n// Chart request duration over time. \n// To create an alert for this query, click '+ New alert rule'\nrequests\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n//| where customDimensions['resourceId'] == \"d72a653f-4ff9-7e78-1f28-a63fd3d16286\"\n| extend cd= parse_json(tostring(customDimensions[\"Data\"]))\n| extend FlowName=tostring(cd.FlowDisplayName)\n| summarize FlowExecution_95=percentile(duration, 95) by bin(timestamp, 10m), FlowName \n| render timechart\n",
+                "related": {
+                    "categories": [
+                        "applications"
+                    ],
+                    "resourceTypes": [
+                        "microsoft.insights/components"
+                    ]
+                },
+                "tags": {
+                    "labels": [
+                        "PA Label"
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.OperationalInsights/querypacks/queries",
+            "apiVersion": "2019-09-01",
+            "name": "[concat(parameters('querypacks_PowerAutomate_name'), '/ecbe7689-ca46-4b9e-821d-d5dcd0d3b070')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.OperationalInsights/querypacks', parameters('querypacks_PowerAutomate_name'))]"
+            ],
+            "properties": {
+                "displayName": "Trigger Failures by FlowName",
+                "body": "// Trigger Failures by FlowName\ndependencies\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n| where customDimensions['signalCategory'] == 'Cloud flow triggers'\n| where success == false\n| extend cd= parse_json(tostring(customDimensions [\"tags\"]))\n| extend flowname=tostring(cd.FlowDisplayName)\n| summarize TriggerFailures=count() by flowname\n| render barchart\n\nrequests\n| where customDimensions['resourceProvider'] == 'Cloud Flow'\n//| where customDimensions['resourceId'] == \"d72a653f-4ff9-7e78-1f28-a63fd3d16286\"\n| extend cd= parse_json(tostring(customDimensions[\"Data\"]))\n| extend FlowName=tostring(cd.FlowDisplayName)\n//| extend RunId=tostring(cd.RunId)\n| where duration >10000\n| project timestamp,FlowName,name, duration,performanceBucket, success, operation_Id, customDimensions\n| order by duration desc ",
+                "related": {
+                    "categories": [
+                        "applications"
+                    ],
+                    "resourceTypes": [
+                        "microsoft.insights/components"
+                    ]
+                },
+                "tags": {
+                    "labels": [
+                        "PA Label"
+                    ]
+                }
+            }
+        }
+    ]
+}
