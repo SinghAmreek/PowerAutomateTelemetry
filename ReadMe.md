@@ -10,6 +10,7 @@ Author: Amreek Singh- Senior Solution Architect- FastTRack for Dynamics
 6. Choose the subscription id,resourcegroup,region and the querypack name (or you can use the default name)
 7. Click on "Review and Create"
 
+or [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-quickstart-templates%2Fmaster%2Fquickstarts%2Fmicrosoft.storage%2Fstorage-account-create%2Fazuredeploy.json)
 
 
 //Import the Dashboard
