@@ -1,4 +1,4 @@
-Author: Amreek Singh- Senior Solution Architect- FastTRack for Dynamics
+Author: Amreek Singh- Senior Solution Architect- FastTrack for Dynamics
 
 //Import the querypack (Kusto Queries)
 1. Log in to your Azure Portal
